@@ -11,7 +11,7 @@ namespace Lasten.Domain;
 /// <param name="AfvalMP">Annual waste tax for a multi-person household in euros.</param>
 /// <param name="Riool1P">Annual sewerage charge for a single-person household in euros.</param>
 /// <param name="RioolMP">Annual sewerage charge for a multi-person household in euros.</param>
-public record Gemeente(
+public sealed record Gemeente(
     string Code,
     string Name,
     decimal OzbTarief,

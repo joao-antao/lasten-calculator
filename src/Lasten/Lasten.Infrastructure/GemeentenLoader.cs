@@ -1,5 +1,6 @@
 using ClosedXML.Excel;
 using Lasten.Domain;
+using Lasten.Infrastructure.Extensions;
 
 namespace Lasten.Infrastructure;
 
@@ -19,8 +20,9 @@ public static class GemeentenLoader
 
     private const string WorksheetName = "Gegevens per gemeente"; // Worksheet name containing relevant properties
 
-    public static IReadOnlyList<Gemeente> Load(string path)
+    public static IReadOnlyList<Gemeente> Load()
     {
+        var path = Path.Combine(AppContext.BaseDirectory, "Coelo/Gemeentelijke_belastingen_2025.xlsx");
         using var workbook = new XLWorkbook(path);
         var sheet = workbook.Worksheet(WorksheetName);
 
@@ -37,11 +39,11 @@ public static class GemeentenLoader
                 continue;
 
             var code = sheet.Cell(row, ColCode + 1).GetString().Trim().PadLeft(4, '0');
-            var ozb = GetDecimal(sheet, row, ColOzb + 1);
-            var afval1p = GetDecimal(sheet, row, ColAfval1p + 1);
-            var afvalmp = GetDecimal(sheet, row, ColAfvalMp + 1);
-            var riool1p = GetDecimal(sheet, row, ColRiool1p + 1);
-            var rioolmp = GetDecimal(sheet, row, ColRioolMp + 1);
+            var ozb = sheet.Cell(row, ColOzb + 1).GetDecimalOrDefault();
+            var afval1p = sheet.Cell(row, ColAfval1p + 1).GetDecimalOrDefault();
+            var afvalmp = sheet.Cell(row, ColAfvalMp + 1).GetDecimalOrDefault();
+            var riool1p = sheet.Cell(row, ColRiool1p + 1).GetDecimalOrDefault();
+            var rioolmp = sheet.Cell(row, ColRioolMp + 1).GetDecimalOrDefault();
 
             if (ozb == 0 && afval1p == 0)
                 continue;
@@ -52,9 +54,4 @@ public static class GemeentenLoader
         return result;
     }
 
-    private static decimal GetDecimal(IXLWorksheet sheet, int row, int col)
-    {
-        var cell = sheet.Cell(row, col);
-        return cell.TryGetValue<decimal>(out var value) ? value : 0m;
-    }
 }

@@ -14,4 +14,10 @@
       <ProjectReference Include="..\Lasten.Domain\Lasten.Domain.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Content Include="Coelo\Gemeentelijke_belastingen_2025.xlsx">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+    </ItemGroup>
+
 </Project>
