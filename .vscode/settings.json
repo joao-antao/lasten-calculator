@@ -1,0 +1,7 @@
+{
+    "github.copilot.chat.commitMessageGeneration.instructions": [
+      {
+        "text": "Follow the Conventional Commits specification for Git commit messages. Add extra detail in a single-paragraph body when needed, and use separate footer lines when applicable. Do not embellish messages."
+      }
+    ]
+}
