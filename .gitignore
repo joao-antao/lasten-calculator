@@ -8,3 +8,10 @@
 /src/Lasten/Lasten.Infrastructure/bin
 /src/Lasten/Lasten.Infrastructure/obj
 src/Lasten/Lasten.sln.DotSettings.user
+/src/Lasten.Console/bin
+/src/.idea
+/src/Lasten.Console/obj
+/src/Lasten.Domain/obj
+/src/Lasten.Infrastructure/bin
+/src/Lasten.Infrastructure/obj
+/src/Lasten.Domain/bin
