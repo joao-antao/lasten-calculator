@@ -7,7 +7,7 @@
 /// <param name="IsSingleHouseHolder">Whether the household is a single person.</param>
 /// <param name="IsPropertyOwner">Whether the resident is a property owner.</param>
 /// <param name="WozWaarde">The municipal valuation of the property in euros.</param>
-/// <param name="Gemeente">The municipality where the property is located.</param>
+/// <param name="Gemeente">The municipality rates and tariffs.</param>
 public sealed record GemeentelijkeBelastigen(bool IsSingleHouseHolder, bool IsPropertyOwner, decimal WozWaarde, Gemeente Gemeente)
 {
     /// <summary>

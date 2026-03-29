@@ -2,3 +2,8 @@
 /src/Lasten.Console/Lasten.Console/obj
 /src/Lasten/Lasten.Console/obj
 /src/Lasten/Lasten.Domain/obj
+/src/Lasten/.idea
+/src/Lasten/Lasten.Console/bin
+/src/Lasten/Lasten.Domain/bin
+/src/Lasten/Lasten.Infrastructure/bin
+/src/Lasten/Lasten.Infrastructure/obj
