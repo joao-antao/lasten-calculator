@@ -8,7 +8,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lasten.Domain", "Lasten.Dom
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{59C32B34-8BFD-4EAE-848C-8B85D36B52CB}"
 	ProjectSection(SolutionItems) = preProject
-		..\..\README.md = ..\..\README.md
+		..\README.md = ..\README.md
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lasten.Infrastructure", "Lasten.Infrastructure\Lasten.Infrastructure.csproj", "{6FE3A9D9-1FF8-4755-8587-6CFDB684239D}"

@@ -1,7 +1,6 @@
 ﻿using Lasten.Domain;
 using Lasten.Infrastructure;
 
-// Loads the COELO dataset from 2025
 var gemeenten = GemeentenLoader.Load();
 
 var gemeentelijkeBelastigen = new GemeentelijkeBelastigen(
