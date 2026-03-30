@@ -1,4 +1,4 @@
-namespace Lasten.Domain;
+namespace Lasten.Domain.Gemeentelijkebelastingen;
 
 /// <summary>
 /// Represents a municipality in the Netherlands with its municipal tax rates.
