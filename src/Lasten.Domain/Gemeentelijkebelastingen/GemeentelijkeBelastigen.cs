@@ -1,4 +1,4 @@
-﻿namespace Lasten.Domain;
+﻿namespace Lasten.Domain.Gemeentelijkebelastingen;
 
 /// <summary>
 /// Calculates municipal taxes (gemeentelijke belastingen) based on household composition, property ownership status, and WOZ valuation.

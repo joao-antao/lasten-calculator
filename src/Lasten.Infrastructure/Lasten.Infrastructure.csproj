@@ -18,6 +18,10 @@
       <Content Include="Coelo\Gemeentelijke_belastingen_2025.xlsx">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Content>
+      <None Remove="Coelo\Waterschapsbelastingen_2025.xlsx" />
+      <Content Include="Coelo\Waterschapsbelastingen_2025.xlsx">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
     </ItemGroup>
 
 </Project>
