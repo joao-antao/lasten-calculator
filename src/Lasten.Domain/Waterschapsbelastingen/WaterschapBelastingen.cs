@@ -3,8 +3,7 @@ namespace Lasten.Domain.Waterschapsbelastingen;
 /// <summary>
 /// Calculates the water authority (waterschap) taxes owed by a specific household.
 /// Takes the tariff data from a <see cref="Waterschap"/> and applies it to the
-/// household's situation( number of occupants, ownership status, and WOZ value)
-/// to produce the levies.
+/// household's situation (number of occupants, ownership status, and WOZ value) to produce levies.
 /// </summary>
 /// <param name="Waterschap">The water authority whose tariffs are used for the calculation.</param>
 /// <param name="IsSingleHouseHolder">
@@ -29,13 +28,11 @@ public sealed record WaterschapBelastingen(
 {
     public string Name => Waterschap.Name;
     
-    public decimal Zuiveringsheffing => Math.Round(IsSingleHouseHolder ? Waterschap.ZuiveringsheffingEen : Waterschap.ZuiveringsheffingMeer, 2, MidpointRounding.AwayFromZero);
+    public decimal Zuiveringsheffing => Math.Round(IsSingleHouseHolder ? Waterschap.ZuiveringsheffingEen : Waterschap.ZuiveringsheffingMeer, 2);
 
-    public decimal WatersysteemIngezetenen => Math.Round(Waterschap.WatersysteemIngezetenen, 2, MidpointRounding.AwayFromZero);
+    public decimal WatersysteemIngezetenen => Math.Round(Waterschap.WatersysteemIngezetenen, 2);
     
-    public decimal WatersysteemGebouwd => IsPropertyOwner
-        ? Math.Round(WozWaarde * (Waterschap.WatersysteemGebouwd / 100m), 2, MidpointRounding.AwayFromZero)
-        : 0m;
+    public decimal WatersysteemGebouwd => IsPropertyOwner ? Math.Round(WozWaarde * (Waterschap.WatersysteemGebouwd / 100m), 2) : 0m;
     
-    public decimal Wegenheffing => Math.Round(Waterschap.WegenIngezetenen, 2, MidpointRounding.AwayFromZero);
+    public decimal Wegenheffing => Math.Round(Waterschap.WegenIngezetenen, 2);
 }

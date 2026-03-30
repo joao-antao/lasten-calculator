@@ -1,5 +1,6 @@
 using ClosedXML.Excel;
 using Lasten.Domain;
+using Lasten.Domain.Gemeentelijkebelastingen;
 using Lasten.Infrastructure.Extensions;
 
 namespace Lasten.Infrastructure;
