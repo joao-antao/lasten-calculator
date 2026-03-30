@@ -14,17 +14,17 @@ public sealed record GemeentelijkeBelastigen(bool IsSingleHouseHolder, bool IsPr
     /// Waste tax (afvalstoffenheffing) based on household size (single or multi-person).
     /// Who pays: residents (both owners and renters).
     /// </summary>
-    public decimal Afvalstoffenheffing => IsSingleHouseHolder ? Gemeente.Afval1P : Gemeente.AfvalMP;
+    public decimal Afvalstoffenheffing => Math.Round(IsSingleHouseHolder ? Gemeente.Afval1P : Gemeente.AfvalMP, 2, MidpointRounding.AwayFromZero);
 
     /// <summary>
     /// Property tax (onroerendezaakbelasting) for property owners, calculated as a percentage of the WOZ value.
     /// Who pays: Property owners only, not renters.
     /// </summary>
-    public decimal Ozb => IsPropertyOwner ? WozWaarde * (Gemeente.OzbTarief / 100m) : 0m;
+    public decimal Ozb => IsPropertyOwner ? Math.Round(WozWaarde * (Gemeente.OzbTarief / 100m), 2, MidpointRounding.AwayFromZero) : 0m;
 
     /// <summary>
     /// Sewerage charge (rioolheffing) based on household size (single or multi-person).
     /// Who pays: Property owners (sometimes passed to renters via service charges).
     /// </summary>
-    public decimal Rioolheffing => IsSingleHouseHolder ? Gemeente.Riool1P : Gemeente.RioolMP;
+    public decimal Rioolheffing => Math.Round(IsSingleHouseHolder ? Gemeente.Riool1P : Gemeente.RioolMP, 2, MidpointRounding.AwayFromZero);
 }
