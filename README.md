@@ -1,6 +1,6 @@
 # lasten-calculator
 
-A console tool that calculates Dutch municipality for a given household and property.
+A console tool that calculates Dutch taxes for a given household and property.
 
 > **Disclaimer:** No guarantee is made for the accuracy of the results. Please consult a qualified professional for tax advice.
 
