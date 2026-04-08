@@ -30,7 +30,7 @@
 | `GemeenteRepository`            | `IGemeenteRepository` adapter wrapping existing `GemeentenLoader`; loads once at construction                 |
 | `WaterschappenRepository`       | `IWaterschappenRepository` adapter wrapping existing `WaterschapLoader`; loads once at construction           |
 | `GemeenteWaterschapMapping`     | `IGemeenteWaterschapMapping` adapter; loads `gemeente_waterschap_2025.json` at startup via `System.Text.Json` |
-| `gemeente_waterschap_2025.json` | 342 gemeente codes mapped to 21 waterschap codes (COELO); curated manually based on geographic boundaries     |
+| `gemeente_waterschap_2025.json` | 342 gemeente codes mapped to 21 waterschap codes (COELO); __done by an LLM and should require validation__    |
 
 ### Console — `Lasten.Console`
 
