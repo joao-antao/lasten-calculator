@@ -11,6 +11,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\Lasten.Application\Lasten.Application.csproj" />
       <ProjectReference Include="..\Lasten.Domain\Lasten.Domain.csproj" />
     </ItemGroup>
 
@@ -20,6 +21,9 @@
       </Content>
       <None Remove="Coelo\Waterschapsbelastingen_2025.xlsx" />
       <Content Include="Coelo\Waterschapsbelastingen_2025.xlsx">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Include="Coelo\gemeente_waterschap_2025.json">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Content>
     </ItemGroup>

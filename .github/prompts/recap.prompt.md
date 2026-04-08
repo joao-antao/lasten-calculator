@@ -51,14 +51,16 @@ What was actually built, fixed, or changed?
 
 ### 🧠 Key Decisions & Rationale
 
-| Decision | Options Considered | Choice Made | Reasoning |
-|----------|-------------------|-------------|-----------|
+| Decision         | Options Considered   | Choice Made       | Reasoning                  |
+|------------------|----------------------|-------------------|----------------------------|
 | [Decision point] | [Option A, Option B] | [Selected option] | [Why this path was chosen] |
 
 **Design Principles Applied:**
+
 - Bullet list of patterns, conventions, or architectural principles invoked
 
 **Trade-offs:**
+
 - What was gained vs. what was sacrificed (e.g., simplicity vs. performance)
 
 ---
@@ -121,27 +123,31 @@ What was actually built, fixed, or changed?
 ### Example 1: Bug Fix Session
 
 **📋 Session Summary**  
+
 **Date:** April 8, 2026  
 **Duration:** ~25 minutes  
 **Participants:** Engineering team member, AI assistant
 
 **🎯 Objectives**
+
 - Fix production bug where mortgage calculator returned NaN for edge case inputs
 - Add test coverage to prevent regression
 
 **✅ Outcomes & Deliverables**
-- **File:** [MortgageCalculator.cs](src/backend/shared/CostOfLiving.Domain/MortgageCalculator.cs#L42-L48)
+
+- **File:** [MortgageCalculator.cs](src/backend/shared/Lasten.Domain/MortgageCalculator.cs#L42-L48)
   - Added null/zero validation before division operations
   - Returns proper error response instead of NaN
-- **File:** [MortgageCalculatorTests.cs](tests/backend/shared/CostOfLiving.Domain.Tests/MortgageCalculatorTests.cs#L89-L103)
+- **File:** [MortgageCalculatorTests.cs](tests/backend/shared/Lasten.Domain.Tests/MortgageCalculatorTests.cs#L89-L103)
   - Added 3 new unit tests for edge cases (zero interest, null principal, negative term)
   - Increased coverage from 78% to 94%
 
 **🧠 Key Decisions & Rationale**
-| Decision | Options Considered | Choice Made | Reasoning |
-|----------|-------------------|-------------|-----------|
-| Error handling | Return NaN, Throw exception, Return Result<T> | Return Result<T> with error | Consistent with existing domain-driven error handling pattern |
-| Validation placement | Controller, Application layer, Domain | Domain model | Business rule enforcement belongs in domain |
+
+| Decision             | Options Considered                            | Choice Made                 | Reasoning                                                     |
+|----------------------|-----------------------------------------------|-----------------------------|---------------------------------------------------------------|
+| Error handling       | Return NaN, Throw exception, Return Result<T> | Return Result<T> with error | Consistent with existing domain-driven error handling pattern |
+| Validation placement | Controller, Application layer, Domain         | Domain model                | Business rule enforcement belongs in domain                   |
 
 **🚧 Action Items & Follow-up**
 - [ ] Deploy to staging environment for QA validation
@@ -170,18 +176,21 @@ What was actually built, fixed, or changed?
 - 12 unit tests + 4 component tests (100% coverage on new code)
 
 **🧠 Key Decisions & Rationale**
-| Decision | Options Considered | Choice Made | Reasoning |
-|----------|-------------------|-------------|-----------|
-| Storage mechanism | SQL, CosmosDB, Blob | CosmosDB | Time-series data, global replication needs, < 10ms read latency SLA |
-| Partition strategy | `/year`, `/date`, `/rateType` | `/date` | Query patterns favor date-based retrieval; avoids hot partitions |
-| Retry approach | Exponential backoff, Fixed interval | Polly with jittered exponential backoff | Industry standard for HTTP resilience |
+
+| Decision           | Options Considered                  | Choice Made                             | Reasoning                                                           |
+|--------------------|-------------------------------------|-----------------------------------------|---------------------------------------------------------------------|
+| Storage mechanism  | SQL, CosmosDB, Blob                 | CosmosDB                                | Time-series data, global replication needs, < 10ms read latency SLA |
+| Partition strategy | `/year`, `/date`, `/rateType`       | `/date`                                 | Query patterns favor date-based retrieval; avoids hot partitions    |
+| Retry approach     | Exponential backoff, Fixed interval | Polly with jittered exponential backoff | Industry standard for HTTP resilience                               |
 
 **🔍 Technical Highlights**
+
 - Discovered external API has undocumented 429 throttling at 150 req/min
 - Implemented circuit breaker pattern to fail fast during API outages
 - Monitoring alert configured for >5% ingestion failures
 
 **🚧 Action Items & Follow-up**
+
 - [ ] Schedule load test for 10x expected traffic
 - [ ] Create runbook for manual ingestion trigger
 - [ ] Set up DataDog dashboard for ingestion pipeline metrics

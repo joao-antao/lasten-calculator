@@ -1,3 +1,4 @@
+using System.Collections.Frozen;
 using ClosedXML.Excel;
 using Lasten.Domain.Waterschapsbelastingen;
 using Lasten.Infrastructure.Extensions;
@@ -17,7 +18,7 @@ public static class WaterschapLoader
 
     private const string WorksheetName = "Gegevens per waterschap";
     
-    public static IReadOnlyDictionary<string, Waterschap> Load()
+    public static FrozenDictionary<string, Waterschap> Load()
     {
         var path = Path.Combine(AppContext.BaseDirectory, "Coelo/Waterschapsbelastingen_2025.xlsx");
         using var workbook = new XLWorkbook(path);
@@ -50,6 +51,6 @@ public static class WaterschapLoader
             result[code] = waterschap;
         }
 
-        return result;
+        return result.ToFrozenDictionary();
     }
 }

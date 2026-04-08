@@ -28,11 +28,11 @@ public sealed record WaterschapBelastingen(
 {
     public string Name => Waterschap.Name;
     
-    public decimal Zuiveringsheffing => Math.Round(IsSingleHouseHolder ? Waterschap.ZuiveringsheffingEen : Waterschap.ZuiveringsheffingMeer, 2);
+    public decimal Zuiveringsheffing => Math.Round(IsSingleHouseHolder ? Waterschap.ZuiveringsheffingEen : Waterschap.ZuiveringsheffingMeer, 2, MidpointRounding.AwayFromZero);
 
-    public decimal WatersysteemIngezetenen => Math.Round(Waterschap.WatersysteemIngezetenen, 2);
-    
-    public decimal WatersysteemGebouwd => IsPropertyOwner ? Math.Round(WozWaarde * (Waterschap.WatersysteemGebouwd / 100m), 2) : 0m;
-    
-    public decimal Wegenheffing => Math.Round(Waterschap.WegenIngezetenen, 2);
+    public decimal WatersysteemIngezetenen => Math.Round(Waterschap.WatersysteemIngezetenen, 2, MidpointRounding.AwayFromZero);
+
+    public decimal WatersysteemGebouwd => IsPropertyOwner ? Math.Round(WozWaarde * (Waterschap.WatersysteemGebouwd / 100m), 2, MidpointRounding.AwayFromZero) : 0m;
+
+    public decimal Wegenheffing => Math.Round(Waterschap.WegenIngezetenen, 2, MidpointRounding.AwayFromZero);
 }

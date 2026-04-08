@@ -11,12 +11,12 @@ namespace Lasten.Domain.Waterschapsbelastingen;
 /// <param name="WatersysteemIngezetenen">Water system charge for residents</param>
 /// <param name="WatersysteemGebouwd">Water system charge for building (specifically for property owners)</param>
 /// <param name="WegenIngezetenen">Road charge for residents (not applicable by all)</param>
-public record Waterschap(
+public sealed record Waterschap(
     string Code,
     string Name,
-    decimal ZuiveringsheffingEen,   
+    decimal ZuiveringsheffingEen,
     decimal ZuiveringsheffingMeer,
-    decimal WatersysteemIngezetenen,  
+    decimal WatersysteemIngezetenen,
     decimal WatersysteemGebouwd,      // % of WOZ value (owners only)
     decimal WegenIngezetenen
 );

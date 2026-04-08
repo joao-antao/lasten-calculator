@@ -1,5 +1,5 @@
+using System.Collections.Frozen;
 using ClosedXML.Excel;
-using Lasten.Domain;
 using Lasten.Domain.Gemeentelijkebelastingen;
 using Lasten.Infrastructure.Extensions;
 
@@ -21,13 +21,13 @@ public static class GemeentenLoader
 
     private const string WorksheetName = "Gegevens per gemeente"; // Worksheet name containing relevant properties
 
-    public static IReadOnlyList<Gemeente> Load()
+    public static FrozenDictionary<string, Gemeente> Load()
     {
         var path = Path.Combine(AppContext.BaseDirectory, "Coelo/Gemeentelijke_belastingen_2025.xlsx");
         using var workbook = new XLWorkbook(path);
         var sheet = workbook.Worksheet(WorksheetName);
 
-        var result = new List<Gemeente>();
+        var result = new Dictionary<string, Gemeente>();
 
         // Data starts at row 5 (4 header rows + 1-based index)
         const int firstDataRow = 5;
@@ -49,10 +49,10 @@ public static class GemeentenLoader
             if (ozb == 0 && afval1p == 0)
                 continue;
 
-            result.Add(new Gemeente(code, name, ozb, afval1p, afvalmp, riool1p, rioolmp));
+            result[name] = new Gemeente(code, name, ozb, afval1p, afvalmp, riool1p, rioolmp);
         }
 
-        return result;
+        return result.ToFrozenDictionary();
     }
 
 }
