@@ -59,11 +59,11 @@ Outputs each tax line and a subtotal for both gemeentelijke and waterschapsbelas
 
 ## Known gaps (TODOs in code)
 
-| # | Location | Description |
-|---|---|---|
-| 1 | `Program.cs` | Console references Infrastructure directly — should go through an Application layer |
+| # | Location     | Description                                                                                                   |
+|---|--------------|---------------------------------------------------------------------------------------------------------------|
+| 1 | `Program.cs` | Console references Infrastructure directly — should go through an Application layer                           |
 | 2 | `Program.cs` | WOZ value is hardcoded — should be fetched from [WOZ-waardeloket](https://www.wozwaardeloket.nl) (public API) |
-| 3 | `Program.cs` | Municipality → water authority mapping is missing — currently requires manual code lookup |
+| 3 | `Program.cs` | Municipality → water authority mapping is missing — currently requires manual code lookup                     |
 
 ---
 
@@ -71,6 +71,3 @@ Outputs each tax line and a subtotal for both gemeentelijke and waterschapsbelas
 
 - [ ] Introduce `Lasten.Application` with command/query handlers to decouple console from infrastructure
 - [ ] Build a municipality → water authority mapping (342 gemeenten → 21 waterschappen)
-- [ ] Add CLI argument parsing (municipality name, WOZ value, household type, owner/renter)
-- [ ] Explore WOZ-waardeloket API integration for automatic WOZ lookup by address
-- [ ] Add unit tests for domain calculation logic
