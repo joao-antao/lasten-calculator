@@ -1,36 +1,38 @@
-﻿using Lasten.Domain.Gemeentelijkebelastingen;
-using Lasten.Domain.Waterschapsbelastingen;
-using Lasten.Infrastructure; // Todo: infra should not be referenced directly here.
+﻿using Lasten.Application.Belastingen;
+using Lasten.Infrastructure;
 
-var gemeenten = GemeentenLoader.Load();
-var waterschappen = WaterschapLoader.Load();
+// Composition root: wire up infrastructure adapters
+var handler = new BerekenLastenHandler(
+    gemeenten: new GemeentenRepository(),
+    waterschappen: new WaterschappenRepository(),
+    mapping: new GemeenteWaterschapMapping());
 
-// Todo: Fetch WOZ from WOZ-waardeloket	wozwaardeloket.nl (public)
-
-var gemeentelijkeBelastigen = new GemeentelijkeBelastigen(
-    IsSingleHouseHolder: false,
-    IsPropertyOwner: true,
+var result = handler.Handle(new BerekenLastenQuery(
+    GemeenteNaam: "Leiden",
     WozWaarde: 511000m,
-    Gemeente: gemeenten.First(g => g.Name == "Leiden")
-);
+    IsSingleHouseHolder: false,
+    IsPropertyOwner: true));
 
-Console.WriteLine("Gemeentelijke belastingen");
-Console.WriteLine("Afvalstoffenheffing: " + gemeentelijkeBelastigen.Afvalstoffenheffing);
-Console.WriteLine("Ozb: " + gemeentelijkeBelastigen.Ozb);
-Console.WriteLine("Rioolheffing: " + gemeentelijkeBelastigen.Rioolheffing);
-Console.WriteLine("Total: " + (gemeentelijkeBelastigen.Afvalstoffenheffing + gemeentelijkeBelastigen.Ozb + gemeentelijkeBelastigen.Rioolheffing));
+Console.WriteLine("Gemeentelijke belastingen — " + result.GemeentelijkeLasten.GemeenteNaam);
+Console.WriteLine("  Afvalstoffenheffing : " + result.GemeentelijkeLasten.Afvalstoffenheffing);
+Console.WriteLine("  OZB                 : " + result.GemeentelijkeLasten.Ozb);
+Console.WriteLine("  Rioolheffing        : " + result.GemeentelijkeLasten.Rioolheffing);
+Console.WriteLine("  Totaal              : " + result.GemeentelijkeLasten.Totaal);
 
-// Todo: A mapping between the 21 water authorities and the municipality
-var waterschapBelastingen = new WaterschapBelastingen( 
-    waterschappen.First(w => w.Key == "0616").Value, // Leiden -> Rijnland (e.g: 0546 -> 0616)
-    IsSingleHouseHolder: false, 
-    IsPropertyOwner: true, 
-    WozWaarde: 511000m);
+if (result.WaterschapLasten is { } ws)
+{
+    Console.WriteLine();
+    Console.WriteLine("Waterschapsbelastingen — " + ws.WaterschapNaam);
+    Console.WriteLine("  Zuiveringsheffing       : " + ws.Zuiveringsheffing);
+    Console.WriteLine("  Watersysteem ingezetenen: " + ws.WatersysteemIngezetenen);
+    Console.WriteLine("  Watersysteem gebouwd    : " + ws.WatersysteemGebouwd);
+    Console.WriteLine("  Wegenheffing            : " + ws.Wegenheffing);
+    Console.WriteLine("  Totaal                  : " + ws.Totaal);
+}
+else
+{
+    Console.WriteLine();
+    Console.WriteLine("Waterschapsbelastingen: geen koppeling gevonden voor deze gemeente.");
+}
 
-Console.WriteLine("Waterschapsbelastingen " + waterschapBelastingen.Name);
-Console.WriteLine("Zuiveringsheffing: "+ waterschapBelastingen.Zuiveringsheffing);
-Console.WriteLine("Wegenheffing "+ waterschapBelastingen.Wegenheffing);
-Console.WriteLine("WatersysteemGebouwd: "+ waterschapBelastingen.WatersysteemGebouwd);
-Console.WriteLine("WatersysteemIngezetenen: "+ waterschapBelastingen.WatersysteemIngezetenen);
-Console.WriteLine("Totaal: " + (waterschapBelastingen.Zuiveringsheffing + waterschapBelastingen.Wegenheffing + waterschapBelastingen.WatersysteemGebouwd + waterschapBelastingen.WatersysteemIngezetenen));
 Console.ReadKey();
