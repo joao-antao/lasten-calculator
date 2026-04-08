@@ -4,5 +4,5 @@ namespace Lasten.Application.Ports;
 
 public interface IGemeentenRepository
 {
-    IReadOnlyList<Gemeente> GetAll();
+    Gemeente? GetByName(string name);
 }

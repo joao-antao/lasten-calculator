@@ -1,6 +1,6 @@
-namespace Lasten.Application.Belastingen;
+namespace Lasten.Application.Taxes;
 
-public sealed record BerekenLastenQuery(
+public sealed record CalculateTaxesQuery(
     string GemeenteNaam,
     decimal WozWaarde,
     bool IsSingleHouseHolder,

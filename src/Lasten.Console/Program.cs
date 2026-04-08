@@ -1,25 +1,33 @@
-﻿using Lasten.Application.Belastingen;
+﻿using Lasten.Application.Taxes;
 using Lasten.Infrastructure;
 
-// Composition root: wire up infrastructure adapters
-var handler = new BerekenLastenHandler(
+var useCase = new CalculateTaxesUseCase(
     gemeenten: new GemeentenRepository(),
     waterschappen: new WaterschappenRepository(),
     mapping: new GemeenteWaterschapMapping());
 
-var result = handler.Handle(new BerekenLastenQuery(
+var result = useCase.Handle(new CalculateTaxesQuery(
     GemeenteNaam: "Leiden",
     WozWaarde: 511000m,
     IsSingleHouseHolder: false,
     IsPropertyOwner: true));
 
-Console.WriteLine("Gemeentelijke belastingen — " + result.GemeentelijkeLasten.GemeenteNaam);
-Console.WriteLine("  Afvalstoffenheffing : " + result.GemeentelijkeLasten.Afvalstoffenheffing);
-Console.WriteLine("  OZB                 : " + result.GemeentelijkeLasten.Ozb);
-Console.WriteLine("  Rioolheffing        : " + result.GemeentelijkeLasten.Rioolheffing);
-Console.WriteLine("  Totaal              : " + result.GemeentelijkeLasten.Totaal);
+if (result.IsFailure)
+{
+    Console.Error.WriteLine("Upsy " + result.Error);
+    Console.ReadKey();
+    return;
+}
 
-if (result.WaterschapLasten is { } ws)
+var berekening = result.Value;
+
+Console.WriteLine("Gemeentelijke belastingen — " + berekening.GemeentelijkeLasten.GemeenteNaam);
+Console.WriteLine("  Afvalstoffenheffing : " + berekening.GemeentelijkeLasten.Afvalstoffenheffing);
+Console.WriteLine("  OZB                 : " + berekening.GemeentelijkeLasten.Ozb);
+Console.WriteLine("  Rioolheffing        : " + berekening.GemeentelijkeLasten.Rioolheffing);
+Console.WriteLine("  Totaal              : " + berekening.GemeentelijkeLasten.Total);
+
+if (berekening.WaterschapLasten is { } ws)
 {
     Console.WriteLine();
     Console.WriteLine("Waterschapsbelastingen — " + ws.WaterschapNaam);
@@ -27,12 +35,12 @@ if (result.WaterschapLasten is { } ws)
     Console.WriteLine("  Watersysteem ingezetenen: " + ws.WatersysteemIngezetenen);
     Console.WriteLine("  Watersysteem gebouwd    : " + ws.WatersysteemGebouwd);
     Console.WriteLine("  Wegenheffing            : " + ws.Wegenheffing);
-    Console.WriteLine("  Totaal                  : " + ws.Totaal);
+    Console.WriteLine("  Totaal                  : " + ws.Total);
 }
 else
 {
     Console.WriteLine();
-    Console.WriteLine("Waterschapsbelastingen: geen koppeling gevonden voor deze gemeente.");
+    Console.WriteLine("Waterschapsbelastingen: we could not find the water authority for this municipality: (" + berekening.GemeentelijkeLasten.GemeenteNaam + ")");
 }
 
 Console.ReadKey();

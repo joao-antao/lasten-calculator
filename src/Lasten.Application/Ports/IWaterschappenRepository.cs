@@ -4,5 +4,5 @@ namespace Lasten.Application.Ports;
 
 public interface IWaterschappenRepository
 {
-    IReadOnlyDictionary<string, Waterschap> GetAll();
+    Waterschap? GetByCode(string code);
 }

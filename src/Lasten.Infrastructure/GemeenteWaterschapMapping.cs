@@ -1,10 +1,11 @@
+using System.Collections.Frozen;
 using System.Text.Json;
 using Lasten.Application.Ports;
 
 namespace Lasten.Infrastructure;
 
 /// <summary>
-/// Maps municipality codes (CBS gemeentecode) to water authority codes (COELO) using a bundled JSON lookup table.
+/// Maps municipality codes to water authority codes (COELO) using a bundled JSON lookup table.
 /// The mapping is based on geographic water authority boundaries for 2025.
 /// Source: <c>Coelo/gemeente_waterschap_2025.json</c>
 /// </summary>
@@ -15,16 +16,15 @@ namespace Lasten.Infrastructure;
 /// </remarks>
 public sealed class GemeenteWaterschapMapping : IGemeenteWaterschapMapping
 {
-    private readonly IReadOnlyDictionary<string, string> _mapping = Load();
+    private readonly FrozenDictionary<string, string> _mapping = Load();
 
-    public string? GetWaterschapCode(string gemeenteCode) =>
-        _mapping.TryGetValue(gemeenteCode, out var code) ? code : null;
+    public string? GetWaterschapCode(string gemeenteCode) => _mapping.GetValueOrDefault(gemeenteCode);
 
-    private static IReadOnlyDictionary<string, string> Load()
+    private static FrozenDictionary<string, string> Load()
     {
         var path = Path.Combine(AppContext.BaseDirectory, "Coelo/gemeente_waterschap_2025.json");
         var json = File.ReadAllText(path);
-        return JsonSerializer.Deserialize<Dictionary<string, string>>(json)
-            ?? throw new InvalidOperationException("Failed to load gemeente-waterschap mapping.");
+        var result = JsonSerializer.Deserialize<Dictionary<string, string>>(json) ?? throw new InvalidOperationException("Failed to load mapping.");
+        return result.ToFrozenDictionary();
     }
 }

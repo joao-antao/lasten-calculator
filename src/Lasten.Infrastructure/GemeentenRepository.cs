@@ -1,3 +1,4 @@
+using System.Collections.Frozen;
 using Lasten.Application.Ports;
 using Lasten.Domain.Gemeentelijkebelastingen;
 
@@ -5,7 +6,7 @@ namespace Lasten.Infrastructure;
 
 public sealed class GemeentenRepository : IGemeentenRepository
 {
-    private readonly IReadOnlyList<Gemeente> _gemeenten = GemeentenLoader.Load();
+    private readonly FrozenDictionary<string, Gemeente> _gemeenten = GemeentenLoader.Load();
 
-    public IReadOnlyList<Gemeente> GetAll() => _gemeenten;
+    public Gemeente? GetByName(string name) => _gemeenten.GetValueOrDefault(name);
 }

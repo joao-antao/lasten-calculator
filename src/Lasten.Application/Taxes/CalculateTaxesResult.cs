@@ -1,4 +1,4 @@
-namespace Lasten.Application.Belastingen;
+namespace Lasten.Application.Taxes;
 
 public sealed record GemeentelijkeLastenResult(
     string GemeenteNaam,
@@ -6,7 +6,7 @@ public sealed record GemeentelijkeLastenResult(
     decimal Ozb,
     decimal Rioolheffing)
 {
-    public decimal Totaal => Afvalstoffenheffing + Ozb + Rioolheffing;
+    public decimal Total => Afvalstoffenheffing + Ozb + Rioolheffing;
 }
 
 public sealed record WaterschapLastenResult(
@@ -16,12 +16,9 @@ public sealed record WaterschapLastenResult(
     decimal WatersysteemGebouwd,
     decimal Wegenheffing)
 {
-    public decimal Totaal => Zuiveringsheffing + WatersysteemIngezetenen + WatersysteemGebouwd + Wegenheffing;
+    public decimal Total => Zuiveringsheffing + WatersysteemIngezetenen + WatersysteemGebouwd + Wegenheffing;
 }
 
-/// <param name="WaterschapLasten">
-/// <c>null</c> when no gemeente → waterschap mapping exists for the requested municipality.
-/// </param>
-public sealed record BerekenLastenResult(
+public sealed record CalculateTaxesResult(
     GemeentelijkeLastenResult GemeentelijkeLasten,
     WaterschapLastenResult? WaterschapLasten);
