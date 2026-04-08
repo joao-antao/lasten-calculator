@@ -135,10 +135,10 @@ What was actually built, fixed, or changed?
 
 **✅ Outcomes & Deliverables**
 
-- **File:** [MortgageCalculator.cs](src/backend/shared/CostOfLiving.Domain/MortgageCalculator.cs#L42-L48)
+- **File:** [MortgageCalculator.cs](src/backend/shared/Lasten.Domain/MortgageCalculator.cs#L42-L48)
   - Added null/zero validation before division operations
   - Returns proper error response instead of NaN
-- **File:** [MortgageCalculatorTests.cs](tests/backend/shared/CostOfLiving.Domain.Tests/MortgageCalculatorTests.cs#L89-L103)
+- **File:** [MortgageCalculatorTests.cs](tests/backend/shared/Lasten.Domain.Tests/MortgageCalculatorTests.cs#L89-L103)
   - Added 3 new unit tests for edge cases (zero interest, null principal, negative term)
   - Increased coverage from 78% to 94%
 

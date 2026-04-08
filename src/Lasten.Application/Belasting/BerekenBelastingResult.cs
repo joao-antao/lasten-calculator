@@ -1,7 +1,7 @@
-namespace Lasten.Application.Taxes;
+namespace Lasten.Application.Belasting;
 
 public sealed record GemeentelijkeLastenResult(
-    string GemeenteNaam,
+    string Name,
     decimal Afvalstoffenheffing,
     decimal Ozb,
     decimal Rioolheffing)
@@ -10,7 +10,7 @@ public sealed record GemeentelijkeLastenResult(
 }
 
 public sealed record WaterschapLastenResult(
-    string WaterschapNaam,
+    string Name,
     decimal Zuiveringsheffing,
     decimal WatersysteemIngezetenen,
     decimal WatersysteemGebouwd,
@@ -19,6 +19,6 @@ public sealed record WaterschapLastenResult(
     public decimal Total => Zuiveringsheffing + WatersysteemIngezetenen + WatersysteemGebouwd + Wegenheffing;
 }
 
-public sealed record CalculateTaxesResult(
+public sealed record BerekenBelastingResult(
     GemeentelijkeLastenResult GemeentelijkeLasten,
     WaterschapLastenResult? WaterschapLasten);

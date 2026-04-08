@@ -4,7 +4,7 @@ using Lasten.Domain.Gemeentelijkebelastingen;
 
 namespace Lasten.Infrastructure;
 
-public sealed class GemeentenRepository : IGemeentenRepository
+public sealed class GemeenteRepository : IGemeenteRepository
 {
     private readonly FrozenDictionary<string, Gemeente> _gemeenten = GemeentenLoader.Load();
 

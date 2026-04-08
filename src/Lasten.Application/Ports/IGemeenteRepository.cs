@@ -2,7 +2,7 @@ using Lasten.Domain.Gemeentelijkebelastingen;
 
 namespace Lasten.Application.Ports;
 
-public interface IGemeentenRepository
+public interface IGemeenteRepository
 {
     Gemeente? GetByName(string name);
 }

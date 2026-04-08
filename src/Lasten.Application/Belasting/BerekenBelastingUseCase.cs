@@ -1,20 +1,19 @@
 using Lasten.Application.Ports;
-using Lasten.Domain;
 using Lasten.Domain.Gemeentelijkebelastingen;
 using Lasten.Domain.Waterschapsbelastingen;
 
-namespace Lasten.Application.Taxes;
+namespace Lasten.Application.Belasting;
 
-public sealed class CalculateTaxesUseCase(
-    IGemeentenRepository gemeenten,
+public sealed class BerekenBelastingUseCase(
+    IGemeenteRepository gemeenteRepository,
     IWaterschappenRepository waterschappen,
     IGemeenteWaterschapMapping mapping)
 {
-    public Result<CalculateTaxesResult, string> Handle(CalculateTaxesQuery query)
+    public Result<BerekenBelastingResult, string> Handle(BerekenBelastingQuery query)
     {
-        var gemeente = gemeenten.GetByName(query.GemeenteNaam);
+        var gemeente = gemeenteRepository.GetByName(query.GemeenteNaam);
         if (gemeente is null)
-            return Result<CalculateTaxesResult, string>.Failure($"Gemeente '{query.GemeenteNaam}' not found.");
+            return Result<BerekenBelastingResult, string>.Failure($"Gemeente '{query.GemeenteNaam}' not found.");
 
         var gemeentelijkeBelastigen = new GemeentelijkeBelastigen(
             query.IsSingleHouseHolder,
@@ -23,7 +22,7 @@ public sealed class CalculateTaxesUseCase(
             gemeente);
 
         var gemeentelijkeLasten = new GemeentelijkeLastenResult(
-            gemeente.Name,
+            Name: gemeente.Name,
             gemeentelijkeBelastigen.Afvalstoffenheffing,
             gemeentelijkeBelastigen.Ozb,
             gemeentelijkeBelastigen.Rioolheffing);
@@ -40,13 +39,13 @@ public sealed class CalculateTaxesUseCase(
                 query.WozWaarde);
 
             waterschapLasten = new WaterschapLastenResult(
-                waterschap.Name,
+                Name: waterschap.Name,
                 waterschapBelastingen.Zuiveringsheffing,
                 waterschapBelastingen.WatersysteemIngezetenen,
                 waterschapBelastingen.WatersysteemGebouwd,
                 waterschapBelastingen.Wegenheffing);
         }
 
-        return Result<CalculateTaxesResult, string>.Success(new CalculateTaxesResult(gemeentelijkeLasten, waterschapLasten));
+        return Result<BerekenBelastingResult, string>.Success(new BerekenBelastingResult(gemeentelijkeLasten, waterschapLasten));
     }
 }

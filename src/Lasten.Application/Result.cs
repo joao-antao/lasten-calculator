@@ -1,4 +1,4 @@
-namespace Lasten.Domain;
+namespace Lasten.Application;
 
 /// <summary>
 /// Represents the outcome of an operation that can either succeed with a value or fail with an error.
