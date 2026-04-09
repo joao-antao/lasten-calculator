@@ -19,9 +19,9 @@ Adopt hexagonal architecture with strict layer separation:
 
 ### Layer rules
 
-- Domain has **zero** external NuGet dependencies
+- Domain has **zero** external dependencies
 - Application depends only on domain; no I/O, no infrastructure references
-- Infrastructure **never** contains business logic — only I/O and mapping
+- Infrastructure **never** contains business logic, only I/O and mapping
 - Monetary values are always `decimal` — no `float`, no `double`
 - All I/O is `async`/`await` — no `.Result` or `.Wait()`
 - Nullable reference types are enabled project-wide
