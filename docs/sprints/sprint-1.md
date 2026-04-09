@@ -1,15 +1,15 @@
-# Sprint 1
+# 🚀 Sprint 1
 
 📅 2026-04-08
 
-## Goal
+## 🎯 Goal
 
 - [x] Introduce `Lasten.Application` with command/query handlers to decouple console from infrastructure
-- [x] Build a municipality → water authority mapping (342 gemeenten → 21 waterschappen)
+- [x] Build a municipality (gemeenten) mapping to water authority (waterschappen)
 
 ---
 
-## What was built
+## 🔨 What was built
 
 
 ### Application — `Lasten.Application`
@@ -42,7 +42,7 @@ Replaced direct domain + infra wiring with `BerekenBelastingUseCase`. Console is
 
 ---
 
-## Key decisions
+## 🧭 Key decisions
 
 | Decision                          | Options Considered                               | Choice Made                        | Reasoning                                                                                            |
 |-----------------------------------|--------------------------------------------------|------------------------------------|------------------------------------------------------------------------------------------------------|
@@ -52,7 +52,7 @@ Replaced direct domain + infra wiring with `BerekenBelastingUseCase`. Console is
 
 ---
 
-## Verified output
+## ✅ Verified output
 
 Leiden · €511,000 WOZ · multi-person · owner:
 
@@ -70,7 +70,7 @@ Leiden · €511,000 WOZ · multi-person · owner:
 
 ---
 
-## Known gaps
+## ⚠️ Known gaps
 
 | # | Location                    | Description                                                                                                                            |
 |---|-----------------------------|----------------------------------------------------------------------------------------------------------------------------------------|
@@ -80,7 +80,7 @@ Leiden · €511,000 WOZ · multi-person · owner:
 
 ---
 
-## Next up
+## ⏭️ Next up
 
 - [ ] Add `Lasten.Application.Tests` — priority cases: unknown gemeente name, renter (OZB = 0), single-person household, gemeente with no waterschap mapping
 - [ ] Add CLI argument parsing: gemeente name, WOZ value, `--single`/`--multi`, `--owner`/`--renter`

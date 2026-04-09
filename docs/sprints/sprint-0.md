@@ -1,14 +1,14 @@
-# Sprint 0 — Initial working calculator
+# 🚀 Sprint 0 — Initial working calculator
 
 📅 2026-04-08
 
-## Goal
+## 🎯 Goal
 
 Deliver a working console tool that calculates Dutch municipal taxes (*gemeentelijke belastingen*) and water authority taxes (*waterschapsbelastingen*) for a given household and property.
 
 ---
 
-## What was built
+## 🔨 What was built
 
 ### Domain — `Lasten.Domain`
 
@@ -57,7 +57,7 @@ Outputs each tax line and a subtotal for both gemeentelijke and waterschapsbelas
 
 ---
 
-## Known gaps (TODOs in code)
+## ⚠️ Known gaps (TODOs in code)
 
 | # | Location     | Description                                                                                                   |
 |---|--------------|---------------------------------------------------------------------------------------------------------------|
@@ -67,7 +67,7 @@ Outputs each tax line and a subtotal for both gemeentelijke and waterschapsbelas
 
 ---
 
-## Next up
+## ⏭️ Next up
 
 - [ ] Introduce `Lasten.Application` with command/query handlers to decouple console from infrastructure
 - [ ] Build a municipality → water authority mapping (342 gemeenten → 21 waterschappen)
